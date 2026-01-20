@@ -60,7 +60,7 @@ export async function extractTextFromImage(imageBase64: string): Promise<OCRResu
     const ingredients: string[] = [];
     for (const line of lines) {
       // 쉼표로 분리
-      const parts = line.split(/[,，]/).map(p => p.trim()).filter(p => p.length > 0);
+      const parts = line.split(/[,，]/).map((p: string) => p.trim()).filter((p: string) => p.length > 0);
       ingredients.push(...parts);
     }
 
