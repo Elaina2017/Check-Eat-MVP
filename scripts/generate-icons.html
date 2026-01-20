@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PWA 아이콘 생성기</title>
+</head>
+<body>
+    <h1>Check-Eat PWA 아이콘 생성</h1>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <br><br>
+    <button onclick="downloadIcons()">아이콘 다운로드</button>
+
+    <script>
+        // 192x192 아이콘 생성
+        function createIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+
+            // 배경 (teal)
+            ctx.fillStyle = '#0d9488';
+            ctx.fillRect(0, 0, size, size);
+
+            // 흰색 원형 배경
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size*0.35, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 체크 아이콘 (간단한 버전)
+            ctx.strokeStyle = '#0d9488';
+            ctx.lineWidth = size * 0.08;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // 체크 모양 그리기
+            ctx.beginPath();
+            ctx.moveTo(size * 0.35, size * 0.5);
+            ctx.lineTo(size * 0.45, size * 0.6);
+            ctx.lineTo(size * 0.65, size * 0.4);
+            ctx.stroke();
+
+            // 텍스트 (선택사항)
+            ctx.fillStyle = '#0d9488';
+            ctx.font = `bold ${size * 0.12}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.fillText('Check-Eat', size/2, size * 0.85);
+        }
+
+        createIcon('canvas192', 192);
+        createIcon('canvas512', 512);
+
+        function downloadIcons() {
+            // 192x192 다운로드
+            const canvas192 = document.getElementById('canvas192');
+            const link192 = document.createElement('a');
+            link192.download = 'icon-192.png';
+            link192.href = canvas192.toDataURL();
+            link192.click();
+
+            // 512x512 다운로드
+            setTimeout(() => {
+                const canvas512 = document.getElementById('canvas512');
+                const link512 = document.createElement('a');
+                link512.download = 'icon-512.png';
+                link512.href = canvas512.toDataURL();
+                link512.click();
+            }, 500);
+
+            alert('아이콘 2개가 다운로드됩니다!\nicon-192.png와 icon-512.png를\ncheck-eat-mvp/public/ 폴더에 넣어주세요.');
+        }
+    </script>
+</body>
+</html>
